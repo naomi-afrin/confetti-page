@@ -6,14 +6,68 @@
     <title>Confetti and PDF</title>
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Updated styles for centered PDF viewer */
+      /* Updated styles for centered PDF viewer and fancier page */
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(
+          to bottom,
+          #87ceeb,
+          #ffffff
+        ); /* Sky blue ombre background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Center content vertically and horizontally */
+        height: 100vh;
+        position: relative; /* Ensure relative positioning for absolute elements */
+      }
+
+      .container {
+        text-align: center;
+        z-index: 1; /* Ensure content is above video */
+      }
+
+      .container img {
+        max-width: 140px; /* Adjusted size for larger image */
+        height: auto;
+        margin: 0 10px; /* Adjusted margin between images */
+      }
+
+      .headline {
+        font-size: 2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #333;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+
+      #startConfettiButton {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-top: 20px; /* Adjusted margin-top for button */
+        margin-bottom: 20px; /* Adjusted margin-bottom for button */
+      }
+
+      #startConfettiButton:hover {
+        background-color: #0056b3;
+      }
+
       #pdfViewer {
         position: fixed;
         top: 50%; /* Center vertically */
         left: 50%; /* Center horizontally */
         transform: translate(-50%, -50%); /* Centering trick */
         width: 80%; /* Adjust width as needed */
-        height: 95%; /* Adjust height as needed */
+        height: 90%; /* Adjust height as needed */
         max-width: 800px; /* Adjust max-width as needed */
         max-height: 700px; /* Adjust max-height as needed */
         z-index: 9999;
@@ -28,10 +82,37 @@
         height: 100%;
         border: none;
       }
+
+      /* Positioning logos */
+      .logo-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 20px; /* Adjusted top spacing */
+        left: 20px; /* Adjusted left spacing */
+        right: 20px; /* Adjusted right spacing */
+        z-index: 1; /* Ensure logos are above video */
+      }
+
+      .logo-container img {
+        max-width: 140px; /* Adjusted size for larger image */
+        height: auto;
+      }
     </style>
   </head>
   <body>
+    <div class="logo-container">
+      <img src="bracu_logo.png" alt="BRACU Logo" />
+      <img src="IEEE_Logo.png" alt="IEEE Logo" />
+    </div>
+
     <div class="container">
+      <h1 class="headline">
+        Let Us Inaugurate The Newsletter of IEEE Bracu Sb 2023
+      </h1>
       <button id="startConfettiButton" onclick="startConfetti()">
         Start Confetti
       </button>
