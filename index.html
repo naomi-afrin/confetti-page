@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confetti Button</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button id="startConfettiButton">Click Here To Inaugerate The Newsletter Of 2023</button>
+    </div>
+
+    <script src="confetti.js"></script>
+    <script>
+        document.getElementById('startConfettiButton').addEventListener('click', function() {
+            confetti.start();
+        });
+    </script>
+</body>
+</html>
