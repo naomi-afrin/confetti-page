@@ -1,21 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confetti Button</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confetti and PDF</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Updated styles for centered PDF viewer */
+      #pdfViewer {
+        position: fixed;
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Centering trick */
+        width: 80%; /* Adjust width as needed */
+        height: 95%; /* Adjust height as needed */
+        max-width: 800px; /* Adjust max-width as needed */
+        max-height: 700px; /* Adjust max-height as needed */
+        z-index: 9999;
+        background-color: #fff; /* Set background color if needed */
+        display: none; /* Initially hide PDF viewer */
+        border: 2px solid #ccc; /* Example border style */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Example box shadow */
+      }
+
+      #pdfIframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <button id="startConfettiButton">Click Here To Inaugerate The Newsletter Of 2023</button>
+      <button id="startConfettiButton" onclick="startConfetti()">
+        Start Confetti
+      </button>
     </div>
 
+    <!-- PDF viewer initially hidden -->
+    <div id="pdfViewer">
+      <iframe id="pdfIframe" src="Newsletter-2021.pdf"></iframe>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="confetti.js"></script>
     <script>
-        document.getElementById('startConfettiButton').addEventListener('click', function() {
-            confetti.start();
-        });
+      function startConfetti() {
+        // Hide the button
+        document.getElementById("startConfettiButton").style.display = "none";
+
+        // Start confetti animation
+        confetti.start();
+
+        // Show the PDF viewer
+        document.getElementById("pdfViewer").style.display = "block";
+
+        // Initialize PDF.js to render the PDF
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js";
+        pdfjsLib
+          .getDocument("Newsletter-2021.pdf")
+          .promise.then(function (pdf) {
+            // Fetch the first page
+            return pdf.getPage(1);
+          })
+          .then(function (page) {
+            var scale = 1; // Adjust this scale factor for larger or smaller view
+            var viewport = page.getViewport({ scale: scale });
+
+            // Prepare canvas using PDF page dimensions
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render PDF page into canvas context
+            var renderContext = {
+              canvasContext: context,
+              viewport: viewport,
+            };
+            page.render(renderContext);
+
+            // Display canvas in the PDF viewer iframe
+            var pdfIframe = document.getElementById("pdfIframe");
+            pdfIframe.contentDocument.body.appendChild(canvas);
+          });
+      }
     </script>
-</body>
+  </body>
 </html>
