@@ -9,11 +9,7 @@
       /* Updated styles for centered PDF viewer and fancier page */
       body {
         font-family: "Arial", sans-serif;
-        background: linear-gradient(
-          to bottom,
-          #87ceeb,
-          #ffffff
-        ); /* Sky blue ombre background */
+        background: linear-gradient(to bottom, #87ceeb, #ffffff); /* Sky blue ombre background */
         margin: 0;
         padding: 0;
         display: flex;
@@ -27,6 +23,7 @@
       .container {
         text-align: center;
         z-index: 1; /* Ensure content is above video */
+        margin-top: 20px; /* Adjusted margin-top for container */
       }
 
       .container img {
@@ -45,7 +42,7 @@
       }
 
       #startConfettiButton {
-        background-color: #007bff;
+        background-color: #00619b;
         color: white;
         border: none;
         padding: 15px 30px;
@@ -62,24 +59,24 @@
       }
 
       #pdfViewer {
-        position: fixed;
-        top: 50%; /* Center vertically */
+        position: absolute; /* Position the PDF viewer */
+        top: calc(100vh / 2 + 50px); /* Center vertically with offset */
         left: 50%; /* Center horizontally */
         transform: translate(-50%, -50%); /* Centering trick */
         width: 80%; /* Adjust width as needed */
-        height: 90%; /* Adjust height as needed */
+        height: 70%; /* Adjust height as needed */
         max-width: 800px; /* Adjust max-width as needed */
-        max-height: 700px; /* Adjust max-height as needed */
+        max-height: 600px; /* Adjust max-height as needed */
         z-index: 9999;
         background-color: #fff; /* Set background color if needed */
-        display: none; /* Initially hide PDF viewer */
         border: 2px solid #ccc; /* Example border style */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Example box shadow */
+        display: none; /* Initially hide PDF viewer */
       }
 
       #pdfIframe {
         width: 100%;
-        height: 100%;
+        height: 110%;
         border: none;
       }
 
@@ -91,7 +88,7 @@
         padding: 20px;
         box-sizing: border-box;
         position: absolute;
-        top: 15px; /* Adjusted top spacing */
+        top: 20px; /* Adjusted top spacing */
         left: 20px; /* Adjusted left spacing */
         right: 20px; /* Adjusted right spacing */
         z-index: 1; /* Ensure logos are above video */
@@ -100,7 +97,84 @@
       .logo-container img {
         max-width: 120px; /* Adjusted size for IEEE logo */
         height: auto;
-        margin-right: 15px; /* Adjusted margin to the left */
+        margin-left: 5px; /* Adjusted margin to the left */
+        margin-right: 20px;
+      }
+
+      /* Loading animation */
+      .loading {
+        font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
+        font-size: larger;
+        text-transform: uppercase;
+        width: 4000px;
+        text-align: center;
+        line-height: 80px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px; /* Positioned at the top of the page */
+        z-index: 9999; /* Ensure it's above other content */
+      }
+
+      .loading span {
+        position: relative;
+        z-index: 999;
+        color: #fff;
+      }
+
+      .loading:before {
+        content: "";
+        background: #00619b;
+        width: 400px;
+        height: 50px;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        animation: 2s loadingBefore infinite ease-in-out;
+      }
+
+      @keyframes loadingBefore {
+        0% {
+          transform: translateX(-14px);
+        }
+        50% {
+          transform: translateX(14px);
+        }
+        100% {
+          transform: translateX(-14px);
+        }
+      }
+
+      .loading:after {
+        content: "";
+        background: #ffffff;
+        width: 14px;
+        height: 70px;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        opacity: 0.5;
+        animation: 2s loadingAfter infinite ease-in-out;
+      }
+
+      @keyframes loadingAfter {
+        0% {
+          transform: translateX(-100px);
+        }
+        50% {
+          transform: translateX(100px);
+        }
+        100% {
+          transform: translateX(-100px);
+        }
       }
     </style>
   </head>
@@ -110,12 +184,17 @@
       <img src="IEEE_Logo.png" alt="IEEE Logo" />
     </div>
 
-    <div class="container">
-      <h1 class="headline">
-        Let Us Inaugurate The Newsletter of IEEE Bracu Sb 2023
-      </h1>
+    <div class="loading">
+      <span><b>Welcome To IEE GBM 2023</b></span>
+    </div>
+
+    <div class="container" id="animatedText">
+      <div class="animated-text-part1">Welcome Bracu IEEE Sb</div>
+      <div class="animated-text-part2">
+        <span>To The Newsletter 2023</span>
+      </div>
       <button id="startConfettiButton" onclick="startConfetti()">
-        Start Confetti
+        Click Here
       </button>
     </div>
 
@@ -128,8 +207,8 @@
     <script src="confetti.js"></script>
     <script>
       function startConfetti() {
-        // Hide the button
-        document.getElementById("startConfettiButton").style.display = "none";
+        // Hide the animated text and button
+        document.getElementById("animatedText").style.display = "none";
 
         // Start confetti animation
         confetti.start();
