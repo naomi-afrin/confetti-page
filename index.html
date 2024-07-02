@@ -9,7 +9,11 @@
       /* Updated styles for centered PDF viewer and fancier page */
       body {
         font-family: "Arial", sans-serif;
-        background: linear-gradient(to bottom, #87ceeb, #ffffff); /* Sky blue ombre background */
+        background: linear-gradient(
+          to bottom,
+          #87ceeb,
+          #ffffff
+        ); /* Sky blue ombre background */
         margin: 0;
         padding: 0;
         display: flex;
@@ -51,7 +55,6 @@
         border-radius: 5px;
         transition: background-color 0.3s ease;
         margin-top: 20px; /* Adjusted margin-top for button */
-        margin-bottom: 20px; /* Adjusted margin-bottom for button */
       }
 
       #startConfettiButton:hover {
@@ -60,11 +63,11 @@
 
       #pdfViewer {
         position: absolute; /* Position the PDF viewer */
-        top: calc(100vh / 2 + 50px); /* Center vertically with offset */
+        top: calc(85% - 200px); /* Center vertically with offset */
         left: 50%; /* Center horizontally */
         transform: translate(-50%, -50%); /* Centering trick */
         width: 80%; /* Adjust width as needed */
-        height: 70%; /* Adjust height as needed */
+        height: 80%; /* Adjust height as needed */
         max-width: 800px; /* Adjust max-width as needed */
         max-height: 600px; /* Adjust max-height as needed */
         z-index: 9999;
@@ -76,7 +79,7 @@
 
       #pdfIframe {
         width: 100%;
-        height: 110%;
+        height: 100%;
         border: none;
       }
 
@@ -188,10 +191,10 @@
       <span><b>Welcome To IEE GBM 2023</b></span>
     </div>
 
-    <div class="container" id="animatedText">
-      <div class="animated-text-part1">Welcome Bracu IEEE Sb</div>
-      <div class="animated-text-part2">
-        <span>To The Newsletter 2023</span>
+    <div class="container">
+      <div class="animated-text">
+        <div>Welcome Bracu IEEE Sb</div>
+        <div>To The Newsletter 2023</div>
       </div>
       <button id="startConfettiButton" onclick="startConfetti()">
         Click Here
@@ -208,7 +211,8 @@
     <script>
       function startConfetti() {
         // Hide the animated text and button
-        document.getElementById("animatedText").style.display = "none";
+        document.querySelector(".animated-text").style.display = "none";
+        document.getElementById("startConfettiButton").style.display = "none";
 
         // Start confetti animation
         confetti.start();
